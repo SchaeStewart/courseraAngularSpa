@@ -47,6 +47,7 @@
             name: "Cheese",
             quantity: 10
         }];
+
         var itemsBought = [];
 
         service.addToBought = function(index) {
@@ -54,7 +55,7 @@
             itemsToBuy.splice(index, 1);
         }
 				service.addToBuy = function(index){
-					itemsToBuy.push(itemsToBuy[index]);
+					itemsToBuy.push(itemsBought[index]);
 					itemsBought.splice(index, 1);
 				}
 
