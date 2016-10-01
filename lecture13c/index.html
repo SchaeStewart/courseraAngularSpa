@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="MsgApp">
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>Expressions and Interpolation</title>
+  </head>
+  <body>
+    <h1>Expressions and Interpolation</h1>
+      <div ng-controller="MsgController">
+        {{name}} has message is: <br />
+        Original {{sayMessage()}}<br  />
+        Loves: {{sayLovesMessage()}}<br />
+        Replace: {{sayLovesMessage() | truth : 'healthy' : 'cookie'}}
+        Big Truth: {{sayLovesMessage() | truth : 'healthy' : 'cookie' | uppercase}}
+      <div>
+        <button ng-click="feedYaakov()">Feed Yakov</button>
+        <br />
+        <img ng-src="images/yaakov_{{stateOfBeing}}.png"
+      </div>
+    </div>
+  </body>
+</html>
