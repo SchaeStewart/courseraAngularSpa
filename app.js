@@ -1,69 +1,36 @@
-(function() {
-    'use strict'
+(function(){
+	'use strict'
 
-    angular.module('ShoppingListCheckOff', [])
-        .controller('ToBuyController', ToBuyController)
-        .controller('AlreadyBoughtController', AlreadyBoughtController)
-        .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+	angular.module('LunchCheckerApp', [])
+	.controller('LunchController', LunchController);
 
-    ToBuyController.$inject = ['ShoppingListCheckOffService'];
-    function ToBuyController(ShoppingListCheckOffService) {
-        var showItemsToBuy = this;
+	LunchController.$inject = ['$scope'];
 
-				showItemsToBuy.items = ShoppingListCheckOffService.getItemsToBuy();
+	function LunchController($scope){
+		//Declare my variables
+		$scope.lunchItems = "";
+		$scope.message;
+		$scope.numOfLunchItems = "";
 
-        showItemsToBuy.addToBought = function(itemIndex) {
-					ShoppingListCheckOffService.addToBought(itemIndex);
-        }
-    }
+		//checks the number of comma seperated items in the text box
+		$scope.checkLunch = function() {
+			//Checks for an empty text box
+		if($scope.lunchItems == ""){
+				$scope.message = "Please enter data first";
+				return;
+		}
 
-    AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-    function AlreadyBoughtController(ShoppingListCheckOffService) {
-        var showItemsBought = this;
+		//Converts the input from the textbox to string, splits the string into an array using commas, gets the length of the arrray
+		$scope.numOfLunchItems = $scope.lunchItems.toString();
+		$scope.numOfLunchItems = $scope.numOfLunchItems.split(",");
+		$scope.numOfLunchItems = $scope.numOfLunchItems.length;
 
-				showItemsBought.items = ShoppingListCheckOffService.getBoughtItems();
-
-				showItemsBought.addToBuy = function(itemIndex){
-					ShoppingListCheckOffService.addToBuy(itemIndex);
-				}
-    }
-
-    function ShoppingListCheckOffService() {
-        var service = this;
-
-        var itemsToBuy = [{
-            name: 'Cookies',
-            quantity: 10
-        }, {
-            name: "Soda",
-            quantity: 10
-        }, {
-            name: "Green beans",
-            quantity: 5
-        }, {
-            name: "Chicken",
-            quantity: 15
-        }, {
-            name: "Cheese",
-            quantity: 10
-        }];
-
-        var itemsBought = [];
-
-        service.addToBought = function(index) {
-            itemsBought.push(itemsToBuy[index]);
-            itemsToBuy.splice(index, 1);
-        }
-				service.addToBuy = function(index){
-					itemsToBuy.push(itemsBought[index]);
-					itemsBought.splice(index, 1);
-				}
-
-        service.getBoughtItems = function() {
-            return itemsBought;
-        };
-        service.getItemsToBuy = function() {
-            return itemsToBuy;
-        };
-    }
-}());
+		//Checks if the number of itmes is <=3 or if they are > 3
+		if($scope.numOfLunchItems <= 3){
+			$scope.message = "Enjoy!";
+		} else if ($scope.numOfLunchItems > 3) {
+			$scope.message = "Too much!";
+		}
+	}
+}
+})();

@@ -1,2 +1,0 @@
-# courseraAngularSpa
-Readme

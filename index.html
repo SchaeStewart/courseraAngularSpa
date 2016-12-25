@@ -1,69 +1,30 @@
 <!doctype html>
-<html lang="en" ng-app="ShoppingListCheckOff">
-    <head>
-        <title>Shopping List Check Off</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script type="text/javascript" src="angular.min.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-        <link rel="stylesheet" href="styles/bootstrap.min.css">
-        <style>
-            .emptyMessage {
-                font-weight: bold;
-                color: red;
-                font-size: 1.2em;
-            }
-            li {
-                margin-bottom: 7px;
-                font-size: 1.2em;
-            }
-            li > button {
-                margin-left: 6px;
-            }
-            button > span {
-                color: green;
-            }
+<html lang="en" ng-app="LunchCheckerApp">
+  <head>
+    <title>Lunch Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+		<script src="angular.min.js"></script>
+		<script src="app.js"></script>
+    <style>
+      .message { font-size: 1.3em; font-weight: bold; }
+    </style>
+  </head>
+<body>
+   <div ng-controller="LunchController" class="container">
+     <h1>Lunch Checker</h1>
+         <div class="form-group">
+             <input ng-model="lunchItems" id="lunch-menu" type="text"
+             placeholder="list comma separated dishes you usually have for lunch"
+             class="form-control">
+         </div>
+         <div class="form-group">
+             <button ng-click="checkLunch()" class="btn btn-default">Check If Too Much</button>
+         </div>
+         <div class="form-group message">
+					 {{message}}
+         </div>
+   </div>
 
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Shopping List Check Off</h1>
-
-            <div class="row">
-
-                <!-- To Buy List -->
-                <div class="col-md-6" ng-controller="ToBuyController as buyCtrl">
-                    <h2>To Buy:</h2>
-                    <ul ng-repeat="item in buyCtrl.items">
-                        <li>Buy
-                            {{item.quantity}}
-                            {{item.name}}
-                            <button ng-click="buyCtrl.addToBought($index)" class="btn btn-default">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                Bought</button>
-                        </li>
-                    </ul>
-                    <!-- check if array is empty and attach to ng-if/ng-show/hide -->
-                    <div ng-hide="buyCtrl.items.length" class="emptyMessage">Everything is bought!</div>
-                </div>
-
-                <!-- Already Bought List -->
-                <div class="col-md-6" ng-controller="AlreadyBoughtController as boughtCtrl">
-                    <h2>Already Bought:</h2>
-                    <ul ng-repeat="item in boughtCtrl.items">
-                        <li>Bought
-                            {{item.quantity}}
-                            {{item.name}}
-                            <button ng-click="boughtCtrl.addToBuy($index)" class="btn btn-default">
-                                <span class="glyphicon glyphicon-ok"></span>
-                                Didn't Buy</button>
-                        </li>
-                    </ul>
-                    <!--Hide if the array length is 0-->
-                    <div ng-hide="boughtCtrl.items.length" class="emptyMessage">Nothing bought yet.</div>
-                </div>
-            </div>
-        </div>
-
-    </body>
+</body>
 </html>
